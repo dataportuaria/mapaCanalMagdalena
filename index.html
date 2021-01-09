@@ -1,0 +1,459 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="data/Poligonos_1.js"></script>
+        <script src="data/CanalesSh_2.js"></script>
+        <script src="data/Puntos_3.js"></script>
+        <script>
+        var highlightLayer;
+        function highlightFeature(e) {
+            highlightLayer = e.target;
+            highlightLayer.openPopup();
+        }
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[-35.71513129611777,-57.63722412043172],[-34.6971956216995,-55.173313368798986]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        map.createPane('pane_gmap_0');
+        map.getPane('pane_gmap_0').style.zIndex = 400;
+        var layer_gmap_0 = L.tileLayer('https://mt1.google.com/vt/lyrs=r&x={x}&y={y}&z={z}', {
+            pane: 'pane_gmap_0',
+            opacity: 1.0,
+            attribution: '',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 18
+        });
+        layer_gmap_0;
+        map.addLayer(layer_gmap_0);
+        function pop_Poligonos_1(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Nombre'] !== null ? autolinker.link(feature.properties['Nombre'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Detalles'] !== null ? autolinker.link(feature.properties['Detalles'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Poligonos_1_0(feature) {
+            switch(String(feature.properties['Nombre'])) {
+                case 'Cargas del Sur':
+                    return {
+                pane: 'pane_Poligonos_1',
+                opacity: 1,
+                color: 'rgba(82,82,82,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(224,97,51,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Nueva Ruta':
+                    return {
+                pane: 'pane_Poligonos_1',
+                interactive: true,
+            }
+                    break;
+                case 'Cargas del Norte':
+                    return {
+                pane: 'pane_Poligonos_1',
+                opacity: 1,
+                color: 'rgba(82,82,82,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(224,97,51,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Islas Flores':
+                    return {
+                pane: 'pane_Poligonos_1',
+                interactive: true,
+            }
+                    break;
+                case 'Banco Ingles':
+                    return {
+                pane: 'pane_Poligonos_1',
+                opacity: 1,
+                color: 'rgba(38,89,128,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(241,233,215,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_Poligonos_1');
+        map.getPane('pane_Poligonos_1').style.zIndex = 401;
+        map.getPane('pane_Poligonos_1').style['mix-blend-mode'] = 'normal';
+        var layer_Poligonos_1 = new L.geoJson(json_Poligonos_1, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Poligonos_1',
+            layerName: 'layer_Poligonos_1',
+            pane: 'pane_Poligonos_1',
+            onEachFeature: pop_Poligonos_1,
+            style: style_Poligonos_1_0,
+        });
+        bounds_group.addLayer(layer_Poligonos_1);
+        map.addLayer(layer_Poligonos_1);
+        function pop_CanalesSh_2(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Nombre'] !== null ? autolinker.link(feature.properties['Nombre'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Longitud</th>\
+                        <td>' + (feature.properties['Longitud'] !== null ? autolinker.link(feature.properties['Longitud'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Calado</th>\
+                        <td>' + (feature.properties['Calado'] !== null ? autolinker.link(feature.properties['Calado'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_CanalesSh_2_0(feature) {
+            switch(String(feature.properties['Nombre'])) {
+                case 'Canal Argentino':
+                    return {
+                pane: 'pane_CanalesSh_2',
+                opacity: 1,
+                color: 'rgba(101,109,113,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Canal Martín García':
+                    return {
+                pane: 'pane_CanalesSh_2',
+                opacity: 1,
+                color: 'rgba(101,109,113,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Canal Punta Indio':
+                    return {
+                pane: 'pane_CanalesSh_2',
+                opacity: 1,
+                color: 'rgba(101,109,113,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Ingreso a Buenos Aires':
+                    return {
+                pane: 'pane_CanalesSh_2',
+                opacity: 1,
+                color: 'rgba(101,109,113,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Ingreso a Dock Sud':
+                    return {
+                pane: 'pane_CanalesSh_2',
+                opacity: 1,
+                color: 'rgba(101,109,113,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Ingreso a Montevideo':
+                    return {
+                pane: 'pane_CanalesSh_2',
+                opacity: 1,
+                color: 'rgba(101,109,113,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Ingreso Río Paraná':
+                    return {
+                pane: 'pane_CanalesSh_2',
+                opacity: 1,
+                color: 'rgba(101,109,113,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Proyecto Canal Magdalena':
+                    return {
+                pane: 'pane_CanalesSh_2',
+                opacity: 1,
+                color: 'rgba(255,92,48,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Canal Emilio Mitre':
+                    return {
+                pane: 'pane_CanalesSh_2',
+                opacity: 1,
+                color: 'rgba(101,109,113,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_CanalesSh_2');
+        map.getPane('pane_CanalesSh_2').style.zIndex = 402;
+        map.getPane('pane_CanalesSh_2').style['mix-blend-mode'] = 'normal';
+        var layer_CanalesSh_2 = new L.geoJson(json_CanalesSh_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_CanalesSh_2',
+            layerName: 'layer_CanalesSh_2',
+            pane: 'pane_CanalesSh_2',
+            onEachFeature: pop_CanalesSh_2,
+            style: style_CanalesSh_2_0,
+        });
+        bounds_group.addLayer(layer_CanalesSh_2);
+        map.addLayer(layer_CanalesSh_2);
+        function pop_Puntos_3(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Nombre'] !== null ? autolinker.link(feature.properties['Nombre'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Detalle'] !== null ? autolinker.link(feature.properties['Detalle'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Puntos_3_0(feature) {
+            switch(String(feature.properties['Nombre'])) {
+                case 'Codillo':
+                    return {
+                pane: 'pane_Puntos_3',
+                radius: 8.0,
+                opacity: 1,
+                color: 'rgba(83,83,83,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(247,247,247,1.0)',
+                interactive: true,
+            }
+                    break;
+                default:
+                    return {
+                pane: 'pane_Puntos_3',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(21,229,202,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_Puntos_3');
+        map.getPane('pane_Puntos_3').style.zIndex = 403;
+        map.getPane('pane_Puntos_3').style['mix-blend-mode'] = 'normal';
+        var layer_Puntos_3 = new L.geoJson(json_Puntos_3, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Puntos_3',
+            layerName: 'layer_Puntos_3',
+            pane: 'pane_Puntos_3',
+            onEachFeature: pop_Puntos_3,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_Puntos_3_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_Puntos_3);
+        map.addLayer(layer_Puntos_3);
+        setBounds();
+        var i = 0;
+        layer_Poligonos_1.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['Nombre'] !== null?String('<div style="color: #000000; font-size: 10pt; font-family: \'MS Shell Dlg 2\', sans-serif;">' + layer.feature.properties['Nombre']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_Poligonos_1'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        var i = 0;
+        layer_CanalesSh_2.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['Nombre'] !== null?String('<div style="color: #000000; font-size: 8pt; font-weight: bold; font-family: \'MS Shell Dlg 2\', sans-serif;">' + layer.feature.properties['Nombre']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_CanalesSh_2'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        var i = 0;
+        layer_Puntos_3.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['Nombre'] !== null?String('<div style="color: #000000; font-size: 10pt; font-family: \'MS Shell Dlg 2\', sans-serif;">' + layer.feature.properties['Nombre']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_Puntos_3'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        resetLabels([layer_Poligonos_1,layer_CanalesSh_2,layer_Puntos_3]);
+        map.on("zoomend", function(){
+            resetLabels([layer_Poligonos_1,layer_CanalesSh_2,layer_Puntos_3]);
+        });
+        map.on("layeradd", function(){
+            resetLabels([layer_Poligonos_1,layer_CanalesSh_2,layer_Puntos_3]);
+        });
+        map.on("layerremove", function(){
+            resetLabels([layer_Poligonos_1,layer_CanalesSh_2,layer_Puntos_3]);
+        });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,1 @@
+var json_Puntos_3 = {"type":"FeatureCollection","name":"Puntos_3","crs":{"type":"name","properties":{"name":"urn:ogc:def:crs:OGC:1.3:CRS84"}},"features":[{"type":"Feature","properties":{"Nombre":"Codillo","Detalle":null},"geometry":{"type":"Point","coordinates":[-56.979479935088726,-35.166089553649016]}}]}
